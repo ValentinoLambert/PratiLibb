@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                  https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="toubeelib\praticien\Domaine\Entity\Praticien" 
+            table="praticien"
+            repository-class="toubeelib\praticien\Repository\PraticienRepository">
+        <id name="id" type="string" column="id">
+            <generator strategy="NONE"/>
+        </id>
+        <field name="nom" type="string" length="48"/>
+        <field name="prenom" type="string" length="48"/>
+        <field name="ville" type="string" length="48"/>
+        <field name="email" type="string" length="128"/>
+        <field name="telephone" type="string" length="24"/>
+
+        <many-to-one field="specialite" target-entity="toubeelib\praticien\Domaine\Entity\Specialite">
+            <join-column name="specialite_id" referenced-column-name="id"/>
+        </many-to-one>
+
+        <many-to-one field="structure" target-entity="toubeelib\praticien\Domaine\Entity\Structure">
+            <join-column name="structure_id" referenced-column-name="id" nullable="true"/>
+        </many-to-one>
+
+        <many-to-many field="motifs" target-entity="toubeelib\praticien\Domaine\Entity\MotifVisite">
+            <join-table name="praticien2motif">
+                <join-columns>
+                    <join-column name="praticien_id" referenced-column-name="id"/>
+                </join-columns>
+                <inverse-join-columns>
+                    <join-column name="motif_id" referenced-column-name="id"/>
+                </inverse-join-columns>
+            </join-table>
+        </many-to-many>
+    </entity>
+
+</doctrine-mapping>

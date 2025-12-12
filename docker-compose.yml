@@ -1,0 +1,37 @@
+services:
+
+  # service sql pour la base praticiens -
+  #
+  praticien.db:
+    image: 'postgres:latest'
+    env_file: ./prat.env
+    ports:
+      - '5433:5432'
+    volumes:
+      - ./sql/prati.1.schema.sql:/docker-entrypoint-initdb.d/01.schema.sql
+      - ./sql/prati.2.data.sql:/docker-entrypoint-initdb.d/02.data.sql
+  #
+  # service administration des bases sql
+  #
+  adminer:
+    image: adminer
+    ports:
+      - '8081:8080'
+
+  # service prati.app : gestion des praticiens construite avec Doctrine
+  #
+  prati.app:
+#   image: 'canals/php:8.3-cli'
+    build:
+      context: build
+      dockerfile: 8.3-cli.Dockerfile
+    env_file: ./prat.env
+    ports:
+      - '3081:80'
+    volumes:
+      - .:/var/php
+    working_dir: /var/php/
+    depends_on:
+      - praticien.db
+    command: php -S 0.0.0.0:80 -t /var/php/public
+

@@ -6,7 +6,7 @@ services:
     image: 'postgres:latest'
     env_file: ./prat.env
     ports:
-      - '5433:5432'
+      - '5434:5432'
     volumes:
       - ./sql/prati.1.schema.sql:/docker-entrypoint-initdb.d/01.schema.sql
       - ./sql/prati.2.data.sql:/docker-entrypoint-initdb.d/02.data.sql
@@ -16,7 +16,7 @@ services:
   adminer:
     image: adminer
     ports:
-      - '8081:8080'
+      - '8082:8080'
 
   # service prati.app : gestion des praticiens construite avec Doctrine
   #
@@ -27,7 +27,7 @@ services:
       dockerfile: 8.3-cli.Dockerfile
     env_file: ./prat.env
     ports:
-      - '3081:80'
+      - '3080:80'
     volumes:
       - .:/var/php
     working_dir: /var/php/

@@ -12,7 +12,7 @@ $specialiteRepository = $entityManager->getRepository(Specialite::class);
 $praticienRepository = $entityManager->getRepository(Praticien::class);
 $structureRepository = $entityManager->getRepository(Structure::class);
 
-echo "Excercice 1 <br>";
+echo "<h2>Exercice 1</h2>";
 echo "1) <br>";
 $specialiteID1 = $specialiteRepository->find(1);
 if ($specialiteID1) {
@@ -206,4 +206,16 @@ if ($specialiteOphtalmo) {
     }
 } else {
     echo "Spécialité ophtalmologie non trouvée.";
+}
+
+echo "<br><h2>Exercice 3 : Repository et DQL</h2>";
+echo "1)<br>";
+$keyword = 'médecine';
+$specialites = $specialiteRepository->getSpecialitesByKeyword($keyword);
+echo "Spécialités contenant '" . $keyword . "':<br>";
+foreach ($specialites as $spec) {
+    echo "- " . $spec->getLibelle() . " : " . $spec->getDescription() . "<br>";
+}
+if (count($specialites) == 0) {
+    echo "Aucune spécialité trouvée.<br>";
 }

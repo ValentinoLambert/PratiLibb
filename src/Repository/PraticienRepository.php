@@ -31,6 +31,6 @@ class PraticienRepository extends EntityRepository
         $query->setParameter('specialite', $specialiteLibelle);
         $query->setParameter('moyenPaiement', $moyenPaiementLibelle);
         
-        return $query->getResult();
+        return $query->getresult();
     }
 }

@@ -18,4 +18,19 @@ class PraticienRepository extends EntityRepository
         
         return $query->getResult();
     }
+
+    public function getPraticiensBySpecialiteAndMoyenPaiement(string $specialiteLibelle, string $moyenPaiementLibelle): array
+    {
+        $dql = "SELECT p, s, mp FROM toubeelib\\praticien\\Domaine\\Entity\\Praticien p
+                JOIN p.specialite s
+                JOIN p.moyensPaiement mp
+                WHERE s.libelle = :specialite AND mp.libelle = :moyenPaiement
+                ORDER BY p.nom ASC";
+        
+        $query = $this->getEntityManager()->createQuery($dql);
+        $query->setParameter('specialite', $specialiteLibelle);
+        $query->setParameter('moyenPaiement', $moyenPaiementLibelle);
+        
+        return $query->getResult();
+    }
 }

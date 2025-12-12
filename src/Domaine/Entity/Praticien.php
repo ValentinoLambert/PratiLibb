@@ -15,6 +15,7 @@ class Praticien
     private Specialite $specialite;
     private ?Structure $structure = null;
     private Collection $motifs;
+    private Collection $moyensPaiement;
 
     public function __construct(string $nom, string $prenom, string $ville, string $email, string $telephone)
     {
@@ -24,6 +25,7 @@ class Praticien
         $this->email = $email;
         $this->telephone = $telephone;
         $this->motifs = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->moyensPaiement = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     public function setId(string $id): void
@@ -94,6 +96,16 @@ class Praticien
     public function addMotif(MotifVisite $motif): void
     {
         $this->motifs->add($motif);
+    }
+
+    public function getMoyensPaiement(): Collection
+    {
+        return $this->moyensPaiement;
+    }
+
+    public function addMoyenPaiement(MoyenPaiement $moyenPaiement): void
+    {
+        $this->moyensPaiement->add($moyenPaiement);
     }
 }
 

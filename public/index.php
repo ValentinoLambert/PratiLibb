@@ -230,3 +230,15 @@ foreach ($praticiens as $prat) {
 if (count($praticiens) == 0) {
     echo "Aucun praticien trouvé.<br>";
 }
+
+echo "<br>3)<br>";
+$specialite = 'médecine générale';
+$moyenPaiement = 'carte bancaire';
+$praticiens3 = $praticienRepository->getPraticiensBySpecialiteAndMoyenPaiement($specialite, $moyenPaiement);
+echo "Praticiens de spécialité '" . $specialite . "' acceptant '" . $moyenPaiement . "':<br>";
+foreach ($praticiens3 as $prat) {
+    echo "- " . $prat->getNom() . " " . $prat->getPrenom() . " (" . $prat->getVille() . ")<br>";
+}
+if (count($praticiens3) == 0) {
+    echo "Aucun praticien trouvé.<br>";
+}

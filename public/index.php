@@ -219,3 +219,14 @@ foreach ($specialites as $spec) {
 if (count($specialites) == 0) {
     echo "Aucune spécialité trouvée.<br>";
 }
+
+echo "<br>2)<br>";
+$keyword2 = 'médecine';
+$praticiens = $praticienRepository->getPraticiensBySpecialiteKeyword($keyword2);
+echo "Praticiens dont la spécialité contient '" . $keyword2 . "':<br>";
+foreach ($praticiens as $prat) {
+    echo "- " . $prat->getNom() . " " . $prat->getPrenom() . " (" . $prat->getSpecialite()->getLibelle() . ")<br>";
+}
+if (count($praticiens) == 0) {
+    echo "Aucun praticien trouvé.<br>";
+}
